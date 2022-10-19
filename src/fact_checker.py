@@ -69,7 +69,7 @@ class FactChecker:
         try :
             num_results = 0 if result == {} else len(result['claims'])
             logger.debug(f'GET request returned {num_results} claims.')
-            print(f'GET request returned {num_results} news for {query}.')
+            
 
             # If there are no results then return an empty dataframe
             if num_results == 0:
@@ -151,5 +151,6 @@ class FactChecker:
         # Convert the claims into a Pandas DataFrame
         logger.debug('Converting the data into a Pandas DataFrame...')
         claim_df = pd.DataFrame.from_records(claims)
+        print(f'GET request returned {len(claim_df)} news for {query}.')
         return claim_df
 
