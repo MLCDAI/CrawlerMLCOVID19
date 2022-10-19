@@ -8,7 +8,7 @@
 
 - Generating fact-checking COVID19 News for COVID-19 Misinformation Detection and any other possible research tasks
   - Supporting restrict result by language code, such as "`zh` for `Chinese`, "`pt` for `Portuguese`" 
-- Search all the fact-checked news which warping [Google Fact Check API](https://developers.google.com/fact-check/tools/api)
+- Search all the fact-checked news which warping in [Google Fact Check API](https://developers.google.com/fact-check/tools/api)
 - Translating text  and detecting news whose language used 
 
 ---
