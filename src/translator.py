@@ -2,6 +2,7 @@
 from google.cloud import translate_v2 as translate
 import os, six 
 from typing import Union, Sequence, List
+from .utils import root_dir
 class GoogleTranslator:
     '''A wrapper for the Google Translation API'''
     base_url = 'https://translation.googleapis.com/language/translate/v2'
@@ -10,7 +11,7 @@ class GoogleTranslator:
         self.api_key =  os.getenv('GOOGLE_TRANSLATION_API_PATH')
         
     def __call__(self, text:Union[str, List[str]], lang: str ='en'):
-        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = self.api_key
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(root_dir / self.api_key)
         translator = translate.Client()
         if type(text) == str:
             if isinstance(text, six.binary_type):
@@ -27,3 +28,19 @@ class GoogleTranslator:
                 result = translator.translate(each_text, target_language=lang)
                 text_list.append(result['translatedText'])
             return text_list
+    def trans(self, text:Union[str, List[str]], lang: str ='en' ):
+        os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(root_dir / self.api_key)
+        translator = translate.Client()
+        if type(text) == str:
+            if isinstance(text, six.binary_type):
+                text = text.decode("utf-8")
+            result = translator.translate(text, target_language=lang)
+            return result 
+        elif type(text) == list: 
+            result_list = []
+            for each_text in text:
+                if isinstance(each_text, six.binary_type):
+                    each_text = each_text.decode("utf-8")
+                result = translator.translate(each_text, target_language=lang)
+                result_list.append(result)
+            return result_list

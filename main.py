@@ -4,6 +4,7 @@ from pathlib import Path
 import yaml
 import logging
 from src.fact_checker import FactChecker
+from src.translator import GoogleTranslator
 import pandas as pd 
 logger = logging.getLogger(__name__)
 cwd_dir = Path.cwd()
@@ -15,6 +16,7 @@ parser = argparse.ArgumentParser(description='COVID19 News Crawler Initialized')
 
 
 parser.add_argument('-q','--query', nargs='+', dest='query',type=str,help="Examples: -q item1 item2, -q item3")
+parser.add_argument('-t','--translate', nargs='+', dest='trans',type=str,help="Examples: -q item1 item2, -q item3")
 parser.add_argument('-lang','--language_code',  type=str, metavar="", default='en',help = '''restrict language for returned news''')
 parser.add_argument('-num','--number_of_result',  type=int, metavar="",default=10 , help = '''The maximum number of news to return''')
 
@@ -52,7 +54,11 @@ def main():
         download_file_path = f'{cwd_dir}/data/news/{front_name}_{file_name}.csv'
         df.to_csv(download_file_path, index=False)
         print(f"data have been downloaded in {download_file_path} successfully")
-
+    elif args.trans:
+        translator = GoogleTranslator()
+        trans_result =translator.trans(args.trans)
+        print(trans_result)
+        
     else:
         print('please input text to search') 
 
