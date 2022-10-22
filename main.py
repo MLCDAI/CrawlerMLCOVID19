@@ -16,7 +16,7 @@ parser = argparse.ArgumentParser(description='COVID19 News Crawler Initialized')
 
 
 parser.add_argument('-q','--query', nargs='+', dest='query',type=str,help="Examples: -q item1 item2, -q item3")
-parser.add_argument('-t','--translate', nargs='+', dest='trans',type=str,help="Examples: -q item1 item2, -q item3")
+parser.add_argument('-trans','--translate',type=str, help="python main.py -trans 'hello world' -lang zh")
 parser.add_argument('-lang','--language_code',  type=str, metavar="", default='en',help = '''restrict language for returned news''')
 parser.add_argument('-num','--number_of_result',  type=int, metavar="",default=10 , help = '''The maximum number of news to return''')
 
@@ -54,9 +54,15 @@ def main():
         download_file_path = f'{cwd_dir}/data/news/{front_name}_{file_name}.csv'
         df.to_csv(download_file_path, index=False)
         print(f"data have been downloaded in {download_file_path} successfully")
-    elif args.trans:
+        
+    elif args.translate:
+        text = args.translate
+        print(f'Input text: {text}')
         translator = GoogleTranslator()
-        trans_result =translator.trans(args.trans)
+        if args.language_code:
+            trans_result =translator.trans(text, lang=args.language_code)
+        else:
+            trans_result =translator.trans(text)
         print(trans_result)
         
     else:

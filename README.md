@@ -45,22 +45,26 @@ optional arguments:
 
 - Example: search news by keyword of "COVID-19, Omicron" (separate by space)
   ```
-  python crawler.py -q COVID-19, Omicron
+  python main.py -q COVID-19, Omicron
 
   ```
 
   If you would like to restrict search result by [language code](https://cloud.google.com/translate/docs/languages)
   ```
-  python crawler.py -q COVID-19, Omicron -lang zh
+  python main.py -q COVID-19, Omicron -lang zh
   ```
 
   If you would like to return number of results for each query:
   ```
-  python crawler.py -q COVID-19, Omicron -num 20
+  python main.py -q COVID-19, Omicron -num 20
+  ```
+  If you would like to use translator to convert text in specific language
+  ```
+  python main.py -trans text -lang ch
   ```
 - Put it all together:
   ```
-  python crawler.py -q COVID19A Omicron -num 20
+  python main.py -q COVID19A Omicron -num 20
   ```
   The output will be like:
   ```
